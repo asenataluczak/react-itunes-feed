@@ -14,6 +14,7 @@ export default function transformITunesFeed(feed: any): FeedInterface {
     rights: feed.rights.label,
     updated: feed.updated.label,
     title: feed.title.label,
+    icon: feed.icon.label,
     albums,
   };
 }
