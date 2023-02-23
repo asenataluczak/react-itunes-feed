@@ -1,16 +1,20 @@
 import React from 'react';
 import './Album.scss';
+import AlbumInterface from './interfaces/album.interface';
 
-// @ts-ignore
-function Album(props) {
+interface AlbumPropsInterface extends Partial<AlbumInterface> {
+  index: number;
+}
+
+function Album(album: AlbumPropsInterface) {
   return (
     <div className='test'>
-      <div className='Album-index'>{props.index + 1}.</div>
+      <div className='Album-index'>{album.index + 1}.</div>
       <div className='Album'>
-        <img src={props.image} />
+        <img src={album.coverImg} />
         <div>
-          <div className='Album-header'>{props.name}</div>
-          <div>{props.artist}</div>
+          <div className='Album-header'>{album.name}</div>
+          <div>{album.artist?.name}</div>
         </div>
       </div>
     </div>
