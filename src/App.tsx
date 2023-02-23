@@ -5,6 +5,10 @@ import axios from "axios";
 
 function App() {
     const [feed, setFeed] = useState<Array<any> | null>(null);
+// TODO: Add typing and interfaces everywhere
+// TODO: Extract axios to service
+// TODO: Setup prettier
+// TODO: Prepare entry object, add interface to it, pass complete needed data
 
     useEffect(() => {
         axios.get(`https://itunes.apple.com/us/rss/topalbums/limit=100/json`)
