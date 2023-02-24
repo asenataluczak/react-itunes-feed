@@ -6,9 +6,9 @@
   border: 1px solid #444c56;
   background-color: #2d333b;
   color: #bfd5d5;
-
-  // TODO: Cleanup styles into separate folder
 }
+
+/*TODO: Cleanup styles into separate folder*/
 
 .Album-index {
   color: #539bf5;

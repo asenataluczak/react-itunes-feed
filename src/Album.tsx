@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/Album.scss';
+import './styles/Album.css';
 import AlbumInterface from './interfaces/album.interface';
 
 interface AlbumPropsInterface extends Partial<AlbumInterface> {

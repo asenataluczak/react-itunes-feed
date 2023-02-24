@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './styles/App.scss';
+import './styles/App.css';
 import Album from './Album';
 import FeedInterface from './interfaces/feed.interface';
 import fetchITunesFeed from './services/services';
