@@ -8,12 +8,12 @@ interface AlbumPropsInterface extends Partial<AlbumInterface> {
 
 function Album(album: AlbumPropsInterface) {
   return (
-    <div className='test'>
-      <div className='Album-index'>{album.index + 1}.</div>
-      <div className='Album'>
-        <img src={album.coverImg} />
+    <div className='flex gap-4 '>
+      <div className='Album-index text-2xl text-right'>{album.index + 1}.</div>
+      <div className='Album flex rounded-md w-full gap-x-4 text-base mb-6'>
+        <img src={album.coverImg} className='rounded-l-md' />
         <div>
-          <div className='Album-header'>{album.name}</div>
+          <div className='text-xl mt-1'>{album.name}</div>
           <div>{album.artist?.name}</div>
         </div>
       </div>

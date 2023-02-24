@@ -20,8 +20,8 @@ function App() {
 
   return (
     <>
-      <div className='App'>
-        <header className='App-header'>
+      <div className='w-1/2 mx-auto my-0'>
+        <header className='App-header text-4xl text-center my-8'>
           <h1>{feed?.title}</h1>
         </header>
         {feed && (
@@ -38,10 +38,10 @@ function App() {
           </div>
         )}
       </div>
-      <footer className='footer'>
+      <footer className='footer flex items-end justify-between px-2 pb-2'>
         <div>{feed?.rights}</div>
         <img src={feed?.icon} width='32px' alt='Rights icon' />
-        <div className='align-right'>
+        <div className='text-right'>
           Updated:
           <br />
           {new Date(feed?.updated || '').toLocaleString()}
