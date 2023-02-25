@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles/Album.css';
 import AlbumInterface from './interfaces/album.interface';
 
@@ -7,18 +7,41 @@ interface AlbumPropsInterface extends Partial<AlbumInterface> {
 }
 
 function Album(album: AlbumPropsInterface) {
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  function toggleExpandable() {
+    setIsExpanded(!isExpanded);
+  }
+
   return (
     <div className='flex gap-4 '>
-      <div className='Album-index text-2xl text-right'>{album.index + 1}.</div>
+      <div className='Album-index text-2xl text-right w-8 shrink-0'>{album.index + 1}.</div>
       <div className='Album flex rounded-md w-full gap-x-4 text-base mb-6'>
-        <img src={album.coverImg} className='rounded-l-md' />
-        <div>
-          <div className='text-xl mt-1'>{album.name}</div>
-          <div>{album.artist?.name}</div>
+        <img
+          src={album.coverImg}
+          className={`rounded-l-md transition-all ${isExpanded ? 'w-48 h-48' : 'w-24 h-24'}`}
+        />
+        <div className='h-full flex flex-col'>
+          <div className='text-xl'>{album.name}</div>
+          <div>
+            <a href={album.artist?.link}>{album.artist?.name}</a>
+          </div>
+          {isExpanded && (
+            <div className='mt-auto pb-1'>
+              Genre: {album.category}
+              <br />
+              Price: {album.category}
+              <br />
+              Release Date: {new Date(album.releaseDate || '').toLocaleDateString()}
+            </div>
+          )}
         </div>
+        <button className='ml-auto mt-auto p-1' onClick={toggleExpandable}>
+          {isExpanded ? 'See less' : 'See more'}
+        </button>
       </div>
     </div>
-  )
+  );
 }
 
 export default Album;

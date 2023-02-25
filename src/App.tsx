@@ -33,6 +33,8 @@ function App() {
                 name={album.name}
                 artist={album.artist}
                 coverImg={album.coverImg}
+                category={album.category}
+                releaseDate={album.releaseDate}
               />
             ))}
           </div>
