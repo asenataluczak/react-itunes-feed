@@ -35,6 +35,7 @@ function App() {
                 coverImg={album.coverImg}
                 category={album.category}
                 releaseDate={album.releaseDate}
+                price={album.price}
               />
             ))}
           </div>

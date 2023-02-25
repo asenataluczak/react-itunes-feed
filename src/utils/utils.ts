@@ -8,6 +8,7 @@ export default function transformITunesFeed(feed: any): FeedInterface {
     coverImg: album['im:image'][2].label,
     name: album['im:name'].label,
     releaseDate: album['im:releaseDate'].label,
+    price: album['im:price'].label,
     artist: { name: album['im:artist'].label, link: album['im:artist'].attributes?.href },
   }));
   return {

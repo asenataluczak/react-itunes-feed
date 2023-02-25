@@ -7,4 +7,5 @@ export default interface AlbumInterface {
   artist: ArtistInterface;
   releaseDate: string;
   link: string;
+  price: string;
 }

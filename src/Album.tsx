@@ -30,7 +30,7 @@ function Album(album: AlbumPropsInterface) {
             <div className='mt-auto pb-1'>
               Genre: {album.category}
               <br />
-              Price: {album.category}
+              Price: {album.price}
               <br />
               Release Date: {new Date(album.releaseDate || '').toLocaleDateString()}
             </div>
