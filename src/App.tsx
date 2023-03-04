@@ -7,9 +7,6 @@ import transformITunesFeed from './utils/utils';
 
 function App() {
   const [feed, setFeed] = useState<FeedInterface | null>(null);
-  // TODO: Add typing and interfaces everywhere
-  // TODO: Fill album component with all data
-  // TODO: Add expandable functionality to the album compnent
 
   useEffect(() => {
     fetchITunesFeed().then((res: any) => {
