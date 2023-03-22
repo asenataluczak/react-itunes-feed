@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './styles/Album.css';
-import AlbumInterface from './interfaces/album.interface';
+import '../styles/Album.css';
+import AlbumInterface from '../interfaces/album.interface';
 
 interface AlbumPropsInterface extends Partial<AlbumInterface> {
   index: number;
