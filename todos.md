@@ -9,6 +9,8 @@ DETAILS
 FEATURES  
 // TODO: Searching functionality  
 // TODO: Filter functionality (by genre, author, release date, price)   
-// TODO: Mobile view/ responsiveness
+// TODO: Mobile view/responsiveness
+// TODO: Light/Dark mode
+// TODO: Displaying difference of position for every album
 
 // TODO: Think about getting list of tracks from a different API
