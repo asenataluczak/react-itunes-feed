@@ -14,10 +14,12 @@ function App() {
   useEffect(() => {
     fetchITunesFeed().then((res: any) => {
       const transformedFeed = transformITunesFeed(res.data.feed);
-      transformedFeed.albums = transformedFeed.albums.map((value: AlbumInterface, index: number) => {
-        transformedFeed.albums[index]['index'] = index;
-        return transformedFeed.albums[index];
-      });
+      transformedFeed.albums = transformedFeed.albums.map(
+        (value: AlbumInterface, index: number) => {
+          transformedFeed.albums[index]['index'] = index;
+          return transformedFeed.albums[index];
+        },
+      );
       setFeed(transformedFeed);
       setFilteredAlbums(transformedFeed.albums);
     });
@@ -26,7 +28,9 @@ function App() {
   const searchAlbum = (query: string) => {
     setFilteredAlbums(
       feed?.albums
-        ? feed.albums.filter(({ name }) => name.toLowerCase().includes(query.toLowerCase()))
+        ? feed.albums.filter(({ name, artist }) =>
+          (`${name.toLowerCase()} ${artist.name.toLowerCase()}`).includes(query.toLowerCase()),
+        )
         : [],
     );
   };
