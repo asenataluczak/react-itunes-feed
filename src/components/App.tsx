@@ -5,7 +5,7 @@ import FeedInterface from '../interfaces/feed.interface';
 import fetchITunesFeed from '../services/services';
 import transformITunesFeed from '../utils/utils';
 import SearchBar from './search-bar/SearchBar';
-import AlbumInterface from '../interfaces/artist.interface';
+import AlbumInterface from '../interfaces/album.interface';
 
 function App() {
   const [feed, setFeed] = useState<FeedInterface>();
@@ -14,8 +14,12 @@ function App() {
   useEffect(() => {
     fetchITunesFeed().then((res: any) => {
       const transformedFeed = transformITunesFeed(res.data.feed);
+      transformedFeed.albums = transformedFeed.albums.map((value: AlbumInterface, index: number) => {
+        transformedFeed.albums[index]['index'] = index;
+        return transformedFeed.albums[index];
+      });
       setFeed(transformedFeed);
-      setFilteredAlbums(feed?.albums || []);
+      setFilteredAlbums(transformedFeed.albums);
     });
   }, []);
 
@@ -40,7 +44,7 @@ function App() {
               filteredAlbums?.map((album: any, index: number) => (
                 <Album
                   key={index}
-                  index={index}
+                  index={album.index}
                   name={album.name}
                   artist={album.artist}
                   coverImg={album.coverImg}

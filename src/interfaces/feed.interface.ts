@@ -1,4 +1,4 @@
-import AlbumInterface from './artist.interface';
+import AlbumInterface from './album.interface';
 
 export default interface FeedInterface {
   rights: string;

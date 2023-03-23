@@ -8,4 +8,5 @@ export default interface AlbumInterface {
   releaseDate: string;
   link: string;
   price: string;
+  index: number;
 }
