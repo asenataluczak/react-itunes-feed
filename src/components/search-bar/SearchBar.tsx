@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/App.css';
 
 interface SearchBarProps {
   search: (query: string) => void;
@@ -6,18 +7,14 @@ interface SearchBarProps {
 
 function SearchBar({ search }: SearchBarProps) {
   return (
-    <div className='relative mt-2 rounded-md shadow-sm'>
       <input
         type='text'
-        name='price'
-        id='price'
-        className='block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+        className='bg-gray-400 block my-8 w-full rounded-md border-0 py-0.5 px-12 text-gray-50 ring-1 ring-inset ring-gray-200 placeholder:text-gray-100 focus:ring-inset focus:ring-blue sm:text-sm sm:leading-6'
         placeholder='Search by album name or by artist'
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           search(e.target.value);
         }}
       />
-    </div>
   );
 }
 

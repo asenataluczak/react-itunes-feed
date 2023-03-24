@@ -38,7 +38,7 @@ function App() {
   return (
     <>
       <div className='w-1/2 mx-auto my-0'>
-        <header className='App-header text-4xl text-center my-8'>
+        <header className='text-blue text-4xl text-center my-8'>
           <h1>{feed?.title}</h1>
         </header>
         <SearchBar search={searchAlbum}></SearchBar>
@@ -58,7 +58,7 @@ function App() {
                 />
               ))
             ) : (
-              <div className='footer text-xl text-center py-10'>No albums found</div>
+              <div className='text-gray-100 text-xl text-center py-10'>No albums found</div>
             )}
             <div className='flex justify-center pb-2'>
               <img src={feed?.icon} width='32px' alt='Rights icon' />
@@ -66,7 +66,7 @@ function App() {
           </div>
         )}
       </div>
-      <footer className='footer flex items-end justify-between px-2 pb-2 fixed bottom-0 left-0 right-0'>
+      <footer className='text-gray-100 flex items-end justify-between px-2 pb-2 fixed bottom-0 left-0 right-0'>
         <div>{feed?.rights}</div>
         <div className='text-right'>
           Updated:
