@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/App.css';
 import FeedInterface from '../interfaces/feed.interface';
 import fetchITunesFeed from '../services/services';
 import transformITunesFeed from '../utils/utils';

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../styles/Album.css';
 import AlbumInterface from '../interfaces/album.interface';
 
 interface AlbumPropsInterface extends Partial<AlbumInterface> {
@@ -15,8 +14,8 @@ function Album(album: AlbumPropsInterface) {
 
   return (
     <div className='flex gap-4 '>
-      <div className='Album-index text-2xl text-right w-8 shrink-0'>{album.index + 1}.</div>
-      <div className='Album flex rounded-md w-full gap-x-4 text-base mb-6'>
+      <div className='text-blue text-2xl text-right w-8 shrink-0'>{album.index + 1}.</div>
+      <div className='text-gray-50 bg-gray-300 border border-gray-200 flex rounded-md w-full gap-x-4 text-base mb-6'>
         <img
           src={album.coverImg}
           className={`rounded-l-md transition-all ${isExpanded ? 'w-48 h-48' : 'w-24 h-24'}`}
