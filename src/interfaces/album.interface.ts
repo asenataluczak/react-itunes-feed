@@ -1,4 +1,4 @@
-import ArtistInterface from './album.interface';
+import ArtistInterface from './artist.interface';
 
 export default interface AlbumInterface {
   category: string;
