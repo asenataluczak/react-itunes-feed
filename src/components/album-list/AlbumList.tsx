@@ -40,7 +40,7 @@ function AlbumList({ albums }: AlbumListProps) {
                 />
               ))
             ) : (
-              <div className='text-gray-100 text-xl text-center py-10'>No albums found</div>
+              <div className='text-gray-200 text-xl text-center py-10'>No albums found</div>
             )}
           </div>
         )}
