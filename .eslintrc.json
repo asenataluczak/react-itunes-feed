@@ -24,5 +24,14 @@
     "react",
     "@typescript-eslint"
   ],
-  "rules": {}
+  "rules": {
+    "max-len": [
+      0,
+      {
+        "code": 80,
+        "ignoreStrings": false,
+        "ignoreTemplateLiterals": false
+      }
+    ]
+  }
 }
