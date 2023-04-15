@@ -19,6 +19,10 @@ function Filter({ genres, filter }: FilterProps) {
     }
   };
 
+  const resetGenres = () => {
+    setSelectedGenres([]);
+  };
+
   useEffect(() => {
     filter(selectedGenres);
     setFilterOn(!!selectedGenres.length);
@@ -26,14 +30,27 @@ function Filter({ genres, filter }: FilterProps) {
 
   return (
     <div className='mt-7 flex flex-col'>
-      <button
-        className={`${
-          filterOn ? 'ring-blue' : 'ring-gray-300'
-        } relative top-4 self-center justify-self-center rounded-md bg-gray-400 py-1.5 px-16 text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
-        onClick={() => setShowPanel(!showPanel)}
-      >
-        Filters
-      </button>
+      <div className='self-center justify-self-center'>
+        <button
+          className={`${
+            filterOn ? 'ring-blue' : 'ring-gray-300'
+          } relative top-4 self-center justify-self-center rounded-md bg-gray-400 py-1.5 px-16 text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
+          onClick={() => setShowPanel(!showPanel)}
+        >
+          Filters
+        </button>
+        {' '}
+        {filterOn && (
+          <button
+            className={`${
+              filterOn ? 'ring-blue' : 'ring-gray-300'
+            } relative top-4 ml-2 self-center justify-self-center rounded-md bg-gray-400 py-1.5 px-1.5 text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
+            onClick={() => resetGenres()}
+          >
+            R
+          </button>
+        )}
+      </div>
       <div
         className={`${showPanel ? 'rounded-xl border' : 'border-t'} ${
           filterOn ? 'border-blue' : 'border-gray-400'
