@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 
 interface FilterProps {
   genres: Array<string>;
@@ -35,10 +36,15 @@ function Filter({ genres, filter }: FilterProps) {
         <button
           className={`${
             filterOn ? 'ring-blue' : 'ring-gray-300'
-          } self-center justify-self-center rounded-md bg-gray-400 py-1.5 px-16 align-middle text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
+          } relative rounded-md bg-gray-400 py-1.5 px-16 align-middle text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
           onClick={() => setShowPanel(!showPanel)}
         >
           Filters
+          {showPanel ? (
+            <ChevronUpIcon className='absolute inset-y-2 right-3 h-4 w-4'></ChevronUpIcon>
+          ) : (
+            <ChevronDownIcon className='absolute inset-y-2 right-3 h-4 w-4'></ChevronDownIcon>
+          )}
         </button>
         {filterOn && (
           <button
