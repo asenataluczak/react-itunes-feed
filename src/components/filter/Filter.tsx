@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 
 interface FilterProps {
   genres: Array<string>;
@@ -30,24 +31,23 @@ function Filter({ genres, filter }: FilterProps) {
 
   return (
     <div className='mt-7 flex flex-col'>
-      <div className='self-center justify-self-center'>
+      <div className='relative top-4 self-center justify-self-center '>
         <button
           className={`${
             filterOn ? 'ring-blue' : 'ring-gray-300'
-          } relative top-4 self-center justify-self-center rounded-md bg-gray-400 py-1.5 px-16 text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
+          } self-center justify-self-center rounded-md bg-gray-400 py-1.5 px-16 align-middle text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
           onClick={() => setShowPanel(!showPanel)}
         >
           Filters
         </button>
-        {' '}
         {filterOn && (
           <button
             className={`${
               filterOn ? 'ring-blue' : 'ring-gray-300'
-            } relative top-4 ml-2 self-center justify-self-center rounded-md bg-gray-400 py-1.5 px-1.5 text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
+            } ml-2 h-8 rounded-md bg-gray-400 px-1.5 align-middle text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
             onClick={() => resetGenres()}
           >
-            R
+            <ArrowPathIcon className='h-5 w-5'></ArrowPathIcon>
           </button>
         )}
       </div>
