@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 import ReactSlider from 'react-slider';
+import FilterQuery from '../../interfaces/filter-query.interface';
 
 interface FilterProps {
-  genres: Array<string>;
-  maxPrice: number;
-  filter: (
-    genres: Array<string>,
-    priceRange: Array<number>,
-  ) => void | undefined;
+  entryData: {
+    genres: Array<string>;
+    maxPrice: number;
+  };
+  filter: (filterQuery: FilterQuery) => void | undefined;
 }
 
-function Filter({ genres, maxPrice, filter }: FilterProps) {
+function Filter({ entryData, filter }: FilterProps) {
+  const { genres, maxPrice } = entryData;
   const [showPanel, setShowPanel] = useState<boolean>(false);
   const [filterOn, setFilterOn] = useState<boolean>(false);
   const [selectedGenres, setSelectedGenres] = useState<Array<string>>([]);
@@ -46,10 +47,12 @@ function Filter({ genres, maxPrice, filter }: FilterProps) {
   };
 
   useEffect(() => {
-    filter(
-      selectedGenres,
-      ifPriceRangeChanged(selectedPriceRange) ? selectedPriceRange : [],
-    );
+    filter({
+      genres: selectedGenres,
+      priceRange: ifPriceRangeChanged(selectedPriceRange)
+        ? selectedPriceRange
+        : [],
+    });
     setFilterOn(
       !!selectedGenres.length || ifPriceRangeChanged(selectedPriceRange),
     );
