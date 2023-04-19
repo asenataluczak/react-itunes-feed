@@ -5,14 +5,20 @@ import ReactSlider from 'react-slider';
 
 interface FilterProps {
   genres: Array<string>;
-  prices: Array<string>;
-  filter: (genres: Array<string>) => void | undefined;
+  maxPrice: number;
+  filter: (
+    genres: Array<string>,
+    priceRange: Array<number>,
+  ) => void | undefined;
 }
 
-function Filter({ genres, prices, filter }: FilterProps) {
+function Filter({ genres, maxPrice, filter }: FilterProps) {
   const [showPanel, setShowPanel] = useState<boolean>(false);
   const [filterOn, setFilterOn] = useState<boolean>(false);
   const [selectedGenres, setSelectedGenres] = useState<Array<string>>([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<Array<number>>(
+    [],
+  );
 
   const addRemoveGenre = (genre: string) => {
     if (!selectedGenres.includes(genre)) {
@@ -23,14 +29,31 @@ function Filter({ genres, prices, filter }: FilterProps) {
     }
   };
 
+  const updatePriceRange = (values: Array<number>) => {
+    setSelectedPriceRange(values);
+  };
+
+  const ifPriceRangeChanged = ([start, end]: Array<number>) => {
+    if (!start && !end) {
+      return false;
+    }
+    return start !== 0 || end !== maxPrice;
+  };
+
   const resetGenres = () => {
     setSelectedGenres([]);
+    setSelectedPriceRange([]);
   };
 
   useEffect(() => {
-    filter(selectedGenres);
-    setFilterOn(!!selectedGenres.length);
-  }, [selectedGenres]);
+    filter(
+      selectedGenres,
+      ifPriceRangeChanged(selectedPriceRange) ? selectedPriceRange : [],
+    );
+    setFilterOn(
+      !!selectedGenres.length || ifPriceRangeChanged(selectedPriceRange),
+    );
+  }, [selectedGenres, selectedPriceRange]);
 
   return (
     <div className='mt-7 flex flex-col'>
@@ -70,7 +93,7 @@ function Filter({ genres, prices, filter }: FilterProps) {
         } h-full bg-gray-600 p-5`}
       >
         {showPanel && (
-          <div className='flex mt-3'>
+          <div className='mt-3 flex'>
             <div className='w-1/2'>
               <div className='font-semibold text-gray-200'>Genres:</div>
               {genres?.map((genre) => (
@@ -83,41 +106,28 @@ function Filter({ genres, prices, filter }: FilterProps) {
                   } m-1 inline-block cursor-pointer rounded-2xl border bg-gray-500 py-1 px-3 text-sm text-gray-100 hover:bg-gray-400`}
                   onClick={() => addRemoveGenre(genre)}
                 >
-                    {genre}
-                  </span>
+                  {genre}
+                </span>
               ))}
             </div>
-            <div className='w-1/2 ml-7'>
-              <div className='font-semibold text-gray-200 mb-9'>Price ($):</div>
+            <div className='ml-7 w-1/2'>
+              <div className='mb-9 font-semibold text-gray-200'>Price ($):</div>
               <ReactSlider
-                className='horizontal-slider cursor-pointer mb-12'
-                thumbClassName='text-gray-50 text-center custom-thumb relative -top-8 -left-2/4 w-4 overflow-visible'
+                className='horizontal-slider mb-12 cursor-pointer'
+                thumbClassName='text-gray-50 text-center custom-thumb relative -top-8 w-4 overflow-visible'
                 trackClassName='bg-gray-200 h-1 rounded'
+                pearling
                 min={0}
-                max={25}
+                max={maxPrice}
                 step={0.01}
-                defaultValue={[0, 25]}
-                ariaLabel={['Lower thumb', 'Upper thumb']}
-                ariaValuetext={state => `Thumb value ${state.valueNow}`}
+                defaultValue={[0, maxPrice]}
+                value={selectedPriceRange}
                 renderMark={(props) => <span {...props} />}
                 renderThumb={(props, state) => (
                   <div {...props}>{state.valueNow}</div>
                 )}
-                pearling
+                onAfterChange={(values) => updatePriceRange(values)}
               />
-
-              {prices?.map((price) => (
-                <span
-                  key={price}
-                  className={`${
-                    selectedGenres.includes(price)
-                      ? 'border-blue'
-                      : 'border-gray-400'
-                  } m-1 inline-block cursor-pointer rounded-2xl border bg-gray-500 py-1 px-3 text-sm text-gray-100 hover:bg-gray-400`}
-                >
-                    {price}
-                  </span>
-              ))}
             </div>
           </div>
         )}

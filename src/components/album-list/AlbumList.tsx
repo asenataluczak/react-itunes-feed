@@ -13,15 +13,16 @@ function AlbumList({ albums }: AlbumListProps) {
     albums || [],
   );
   const [genres, setGenres] = useState<Array<string>>([]);
+  const [prices, setPrices] = useState<Array<number>>([]);
 
   const searchAlbum = (query: string) => {
     setFilteredAlbums(
       albums
         ? albums.filter(({ name, artist }) =>
-          `${name.toLowerCase()} ${artist.name.toLowerCase()}`.includes(
-            query.toLowerCase(),
-          ),
-        )
+            `${name.toLowerCase()} ${artist.name.toLowerCase()}`.includes(
+              query.toLowerCase(),
+            ),
+          )
         : [],
     );
   };
@@ -32,26 +33,46 @@ function AlbumList({ albums }: AlbumListProps) {
     return genres.sort();
   };
 
-  const filterByGenre = (genres: Array<string>) => {
+  function getMaxPrice() {
+    const prices = albums
+      ?.map((album: AlbumInterface) => Number(album.price.replace('$', '')))
+      .sort((a: number, b: number) => a - b);
+    return Math.ceil(prices?.pop() || 50);
+  }
+
+  const filter = (genres: Array<string>, priceRange: Array<number>) => {
     setGenres(genres);
+    setPrices(priceRange);
+  };
+
+  const isWithinPriceRange = (album: AlbumInterface) => {
+    const price = Number(album.price.replace('$', ''));
+    return price >= prices[0] && price <= prices[1];
   };
 
   useEffect(() => {
-    if (!genres.length && albums) {
+    if (!genres.length && !prices.length && albums) {
       setFilteredAlbums(albums);
       return;
     }
     setFilteredAlbums(
-      albums?.filter((album: AlbumInterface) =>
-        genres.includes(album.category),
-      ) || [],
+      albums?.filter((album: AlbumInterface) => {
+        if (genres.length && prices.length) {
+          return genres.includes(album.category) && isWithinPriceRange(album);
+        }
+        return genres.includes(album.category) || isWithinPriceRange(album);
+      }) || [],
     );
-  }, [genres]);
+  }, [genres, prices]);
 
   return (
     <>
       <SearchBar search={searchAlbum}></SearchBar>
-      <Filter genres={getGenres()} filter={filterByGenre}></Filter>
+      <Filter
+        genres={getGenres()}
+        maxPrice={getMaxPrice()}
+        filter={filter}
+      ></Filter>
       <div className='mt-10'>
         {albums && (
           <div className='mt-6'>
