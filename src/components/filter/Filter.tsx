@@ -63,8 +63,10 @@ function Filter({ entryData, filter }: FilterProps) {
       <div className='relative top-4 self-center justify-self-center '>
         <button
           className={`${
-            filterOn ? 'ring-blue' : 'ring-gray-300'
-          } relative rounded-md bg-gray-400 py-1.5 px-16 align-middle text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
+            filterOn
+              ? 'ring-2 ring-blue dark:ring-1'
+              : 'ring-1 ring-sand-200 dark:ring-gray-300'
+          } relative rounded-md bg-sand-100 py-1.5 px-12 align-middle text-sm font-semibold text-sand-400  ring-inset hover:bg-sand-200 dark:bg-gray-400 dark:text-gray-100 dark:hover:bg-gray-300 `}
           onClick={() => setShowPanel(!showPanel)}
         >
           {filterOn
@@ -82,8 +84,10 @@ function Filter({ entryData, filter }: FilterProps) {
         {filterOn && (
           <button
             className={`${
-              filterOn ? 'ring-blue' : 'ring-gray-300'
-            } ml-2 h-8 rounded-md bg-gray-400 px-1.5 align-middle text-sm font-semibold text-gray-100 ring-1 ring-inset hover:bg-gray-300 `}
+              filterOn
+                ? 'ring-2 ring-blue dark:ring-1'
+                : 'ring-1 ring-sand-200 dark:ring-gray-300'
+            } ml-2 h-8 rounded-md bg-sand-100 px-1.5 align-middle text-sm font-semibold text-sand-400 ring-2 ring-inset hover:bg-sand-200 dark:bg-gray-400 dark:text-gray-100 dark:hover:bg-gray-300 `}
             onClick={() => resetGenres()}
           >
             <ArrowPathIcon className='h-5 w-5'></ArrowPathIcon>
@@ -92,33 +96,40 @@ function Filter({ entryData, filter }: FilterProps) {
       </div>
       <div
         className={`${showPanel ? 'rounded-xl border' : 'border-t'} ${
-          filterOn ? 'border-blue' : 'border-gray-400'
-        } h-full bg-gray-600 p-5`}
+          filterOn ? 'border-blue ' : 'border-sand-200 dark:border-gray-400'
+        } ${!showPanel && filterOn ? 'border-t-2 dark:border-t' : ''}
+         ${
+          showPanel && filterOn ? 'border-2 dark:border' : ''
+        } h-full bg-sand-50 p-5 dark:bg-gray-600`}
       >
         {showPanel && (
           <div className='mt-3 flex'>
-            <div className='w-1/2'>
-              <div className='font-semibold text-gray-200'>Genres:</div>
+            <div className='w-3/5'>
+              <div className='font-semibold text-sand-300 dark:text-gray-200'>
+                Genres:
+              </div>
               {genres?.map((genre) => (
                 <span
                   key={genre}
                   className={`${
                     selectedGenres.includes(genre)
-                      ? 'border-blue'
-                      : 'border-gray-400'
-                  } m-1 inline-block cursor-pointer rounded-2xl border bg-gray-500 py-1 px-3 text-sm text-gray-100 hover:bg-gray-400`}
+                      ? 'border-2 border-blue dark:border'
+                      : 'border border-sand-200 dark:border-gray-400'
+                  } m-1 inline-block cursor-pointer rounded-2xl bg-sand-100 py-0.5 px-2.5 text-sm text-sand-400 hover:bg-sand-200 dark:bg-gray-500 dark:text-gray-100 dark:hover:bg-gray-400`}
                   onClick={() => addRemoveGenre(genre)}
                 >
                   {genre}
                 </span>
               ))}
             </div>
-            <div className='ml-7 w-1/2'>
-              <div className='mb-9 font-semibold text-gray-200'>Price ($):</div>
+            <div className='ml-4 w-2/5'>
+              <div className='mb-9 font-semibold text-sand-300 dark:text-gray-200'>
+                Price ($):
+              </div>
               <ReactSlider
                 className='horizontal-slider mb-12 cursor-pointer'
-                thumbClassName='text-gray-50 text-center custom-thumb relative -top-8 w-4 overflow-visible'
-                trackClassName='bg-gray-200 h-1 rounded'
+                thumbClassName='dark:text-gray-50 text-sand-300 text-center custom-thumb relative -top-8 w-4 overflow-visible'
+                trackClassName='dark:bg-gray-200 bg-sand-200 h-1 rounded'
                 pearling
                 min={0}
                 max={maxPrice}
