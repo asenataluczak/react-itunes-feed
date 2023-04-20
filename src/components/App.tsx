@@ -4,9 +4,11 @@ import fetchITunesFeed from '../services/services';
 import transformITunesFeed from '../utils/utils';
 import AlbumInterface from '../interfaces/album.interface';
 import AlbumList from './album-list/AlbumList';
+import DarkModeToggler from './dark-mode-toggler/DarkModeToggler';
 
 function App() {
   const [feed, setFeed] = useState<FeedInterface>();
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
     fetchITunesFeed().then((res: any) => {
@@ -22,9 +24,13 @@ function App() {
   }, []);
 
   return (
-    <>
-      <div className='w-1/2 mx-auto my-0'>
-        <header className='text-blue text-4xl text-center my-8'>
+    <div className={`${isDarkMode ? 'dark' : ''}`}>
+      <DarkModeToggler
+        isDarkMode={isDarkMode}
+        setIsDarkMode={setIsDarkMode}
+      ></DarkModeToggler>
+      <div className='mx-auto my-0 w-1/2'>
+        <header className='my-8 text-center text-4xl font-semibold text-blue dark:font-normal'>
           <h1>{feed?.title}</h1>
         </header>
         {feed && <AlbumList albums={feed?.albums}></AlbumList>}
@@ -32,7 +38,8 @@ function App() {
       <div className='flex justify-center pb-2'>
         <img src={feed?.icon} width='32px' alt='Rights icon' />
       </div>
-      <footer className='text-gray-100 flex items-end justify-between px-2 pb-2 fixed bottom-0 left-0 right-0'>
+      <footer
+        className='fixed bottom-0 left-0 right-0 flex items-end justify-between px-2 pb-2 text-sand-300 dark:text-gray-100'>
         <div>{feed?.rights}</div>
         <div className='text-right'>
           Updated:
@@ -40,7 +47,7 @@ function App() {
           {new Date(feed?.updated || '').toLocaleString()}
         </div>
       </footer>
-    </>
+    </div>
   );
 }
 
