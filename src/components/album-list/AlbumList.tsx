@@ -14,7 +14,10 @@ function AlbumList({ albums }: AlbumListProps) {
 
   return (
     <>
-      <AlbumListModifier albums={albums} setFilteredAlbums={setFilteredAlbums}></AlbumListModifier>
+      <AlbumListModifier
+        albums={albums}
+        setFilteredAlbums={setFilteredAlbums}
+      ></AlbumListModifier>
       <div className='mt-10'>
         {albums && (
           <div className='mt-6'>
@@ -32,7 +35,7 @@ function AlbumList({ albums }: AlbumListProps) {
                 />
               ))
             ) : (
-              <div className='py-10 text-center text-xl dark:text-gray-200 text-sand-300'>
+              <div className='py-10 text-center text-xl text-sand-300 dark:text-gray-200'>
                 No albums found
               </div>
             )}

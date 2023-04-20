@@ -8,7 +8,7 @@ import DarkModeToggler from './dark-mode-toggler/DarkModeToggler';
 
 function App() {
   const [feed, setFeed] = useState<FeedInterface>();
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
   useEffect(() => {
     fetchITunesFeed().then((res: any) => {
@@ -29,7 +29,7 @@ function App() {
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
       ></DarkModeToggler>
-      <div className='mx-auto my-0 w-1/2'>
+      <div className='mx-6 my-0 md:mx-auto md:w-3/4 xl:w-3/5 2xl:w-1/2'>
         <header className='my-8 text-center text-4xl font-semibold text-blue dark:font-normal'>
           <h1>{feed?.title}</h1>
         </header>
@@ -39,7 +39,7 @@ function App() {
         <img src={feed?.icon} width='32px' alt='Rights icon' />
       </div>
       <footer
-        className='fixed bottom-0 left-0 right-0 flex items-end justify-between px-2 pb-2 text-sand-300 dark:text-gray-100'>
+        className='bottom-0 left-0 right-0 -mt-12 flex items-end justify-between px-2 pb-2 text-sand-300 dark:text-gray-100 xl:fixed'>
         <div>{feed?.rights}</div>
         <div className='text-right'>
           Updated:

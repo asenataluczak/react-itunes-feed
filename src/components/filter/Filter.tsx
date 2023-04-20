@@ -103,8 +103,8 @@ function Filter({ entryData, filter }: FilterProps) {
         } h-full bg-sand-50 p-5 dark:bg-gray-600`}
       >
         {showPanel && (
-          <div className='mt-3 flex'>
-            <div className='w-3/5'>
+          <div className='mt-3 flex lg:flex-row flex-col'>
+            <div className='lg:w-3/5'>
               <div className='font-semibold text-sand-300 dark:text-gray-200'>
                 Genres:
               </div>
@@ -122,7 +122,7 @@ function Filter({ entryData, filter }: FilterProps) {
                 </span>
               ))}
             </div>
-            <div className='ml-4 w-2/5'>
+            <div className='lg:ml-4 lg:mt-0 mt-3 md:w-2/5 w-full'>
               <div className='mb-9 font-semibold text-sand-300 dark:text-gray-200'>
                 Price ($):
               </div>
