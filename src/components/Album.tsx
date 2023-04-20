@@ -15,10 +15,11 @@ function Album(album: AlbumPropsInterface) {
 
   return (
     <div className='flex gap-4 '>
-      <div className='w-8 shrink-0 text-right text-2xl text-blue'>
+      <div className='w-8 shrink-0 text-right text-2xl font-semibold text-blue dark:font-normal'>
         {album.index + 1}.
       </div>
-      <div className='mb-6 flex w-full gap-x-4 rounded-md border border-gray-300 bg-gray-500 text-base text-gray-50'>
+      <div
+        className='mb-6 flex w-full gap-x-4 rounded-md border border-sand-200 bg-sand-100 text-base text-sand-400 dark:border-gray-300 dark:bg-gray-500 dark:text-gray-50'>
         <img
           src={album.coverImg}
           className={`rounded-l-md transition-all ${
@@ -43,9 +44,9 @@ function Album(album: AlbumPropsInterface) {
         </div>
         <button className='ml-auto mt-auto p-1' onClick={toggleExpandable}>
           {isExpanded ? (
-            <ChevronUpIcon className='h-5 w-5 mr-1'></ChevronUpIcon>
+            <ChevronUpIcon className='mr-1 h-5 w-5'></ChevronUpIcon>
           ) : (
-            <ChevronDownIcon className='h-5 w-5 mr-1'></ChevronDownIcon>
+            <ChevronDownIcon className='mr-1 h-5 w-5'></ChevronDownIcon>
           )}
         </button>
       </div>
