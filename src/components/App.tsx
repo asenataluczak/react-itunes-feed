@@ -19,6 +19,10 @@ function App() {
     if (!feed) {
       fetchITunesFeed().then((res: any) => {
         const transformedFeed = transformITunesFeed(res.data.feed);
+        if (updated && updated !== transformedFeed.updated) {
+          console.log('OLD: ' + updated);
+          console.log('NEW: ' + transformedFeed.updated);
+        }
         transformedFeed.albums = transformedFeed.albums.map(
           (value: AlbumInterface, index: number) => {
             transformedFeed.albums[index]['index'] = index;
@@ -30,7 +34,6 @@ function App() {
     }
     if (feed) {
       dispatch(update({ updated: feed.updated, albums: feed.albums }));
-      console.log(updated);
     }
   }, [feed]);
 
