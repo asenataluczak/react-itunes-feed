@@ -14,6 +14,7 @@ interface FilterProps {
 
 function Filter({ entryData, filter }: FilterProps) {
   const { genres, maxPrice } = entryData;
+  const minPrice = 0;
   const [showPanel, setShowPanel] = useState<boolean>(false);
   const [filterOn, setFilterOn] = useState<boolean>(false);
   const [selectedGenres, setSelectedGenres] = useState<Array<string>>([]);
@@ -43,7 +44,7 @@ function Filter({ entryData, filter }: FilterProps) {
 
   const resetGenres = () => {
     setSelectedGenres([]);
-    setSelectedPriceRange([]);
+    setSelectedPriceRange([minPrice, maxPrice]);
   };
 
   useEffect(() => {
@@ -83,11 +84,9 @@ function Filter({ entryData, filter }: FilterProps) {
         </button>
         {filterOn && (
           <button
-            className={`${
-              filterOn
-                ? 'ring-2 ring-blue dark:ring-1'
-                : 'ring-1 ring-sand-200 dark:ring-gray-300'
-            } ml-2 h-8 rounded-md bg-sand-100 px-1.5 align-middle text-sm font-semibold text-sand-400 ring-2 ring-inset hover:bg-sand-200 dark:bg-gray-400 dark:text-gray-100 dark:hover:bg-gray-300 `}
+            className={
+              'ml-2 h-8 rounded-md bg-sand-100 px-1.5 align-middle text-sm font-semibold text-sand-400 ring-2 ring-2 ring-inset ring-blue hover:bg-sand-200 dark:bg-gray-400 dark:text-gray-100 dark:ring-1 dark:hover:bg-gray-300'
+            }
             onClick={() => resetGenres()}
           >
             <ArrowPathIcon className='h-5 w-5'></ArrowPathIcon>
@@ -103,7 +102,7 @@ function Filter({ entryData, filter }: FilterProps) {
         } h-full bg-sand-50 p-5 dark:bg-gray-600`}
       >
         {showPanel && (
-          <div className='mt-3 flex lg:flex-row flex-col'>
+          <div className='mt-3 flex flex-col lg:flex-row'>
             <div className='lg:w-3/5'>
               <div className='font-semibold text-sand-300 dark:text-gray-200'>
                 Genres:
@@ -122,7 +121,7 @@ function Filter({ entryData, filter }: FilterProps) {
                 </span>
               ))}
             </div>
-            <div className='lg:ml-4 lg:mt-0 mt-3 md:w-2/5 w-full'>
+            <div className='mt-3 w-full md:w-2/5 lg:ml-4 lg:mt-0'>
               <div className='mb-9 font-semibold text-sand-300 dark:text-gray-200'>
                 Price ($):
               </div>
@@ -131,10 +130,10 @@ function Filter({ entryData, filter }: FilterProps) {
                 thumbClassName='dark:text-gray-50 text-sand-300 text-center custom-thumb relative -top-8 w-4 overflow-visible'
                 trackClassName='dark:bg-gray-200 bg-sand-200 h-1 rounded'
                 pearling
-                min={0}
+                min={minPrice}
                 max={maxPrice}
                 step={0.01}
-                defaultValue={[0, maxPrice]}
+                defaultValue={[minPrice, maxPrice]}
                 value={selectedPriceRange}
                 renderMark={(props) => <span {...props} />}
                 renderThumb={(props, state) => (
