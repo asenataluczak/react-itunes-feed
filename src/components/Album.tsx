@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AlbumInterface from '../interfaces/album.interface';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
+import PositionTracker from './position-tracker/PositionTracker';
 
 interface AlbumPropsInterface extends Partial<AlbumInterface> {
   index: number;
@@ -15,8 +16,11 @@ function Album(album: AlbumPropsInterface) {
 
   return (
     <div className='flex gap-4 '>
-      <div className='w-8 shrink-0 text-right text-2xl font-semibold text-blue dark:font-normal'>
-        {album.index + 1}.
+      <div>
+        <div className='w-8 shrink-0 text-right text-2xl font-semibold text-blue dark:font-normal'>
+          {album.index + 1}.
+        </div>
+        <PositionTracker shift={'new'}></PositionTracker>
       </div>
       <div
         className='mb-6 flex w-full gap-x-4 rounded-md border border-sand-200 bg-sand-100 text-base text-sand-400 dark:border-gray-300 dark:bg-gray-500 dark:text-gray-50'>

@@ -23,6 +23,13 @@ module.exports = {
         500: '#302e2b',
       },
       blue: '#539bf5',
+      red: {
+        50: '#ff0000',
+      },
+      green: {
+        50: '#31ffbd',
+        100: '#1c946e',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],
