@@ -5,23 +5,34 @@ import transformITunesFeed from '../utils/utils';
 import AlbumInterface from '../interfaces/album.interface';
 import AlbumList from './album-list/AlbumList';
 import DarkModeToggler from './dark-mode-toggler/DarkModeToggler';
+import { useDispatch, useSelector } from 'react-redux';
+import { update } from '../store/albumListSlice';
+import { RootState } from '../store/store';
 
 function App() {
   const [feed, setFeed] = useState<FeedInterface>();
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+  const updated = useSelector((state: RootState) => state.albumList.updated);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchITunesFeed().then((res: any) => {
-      const transformedFeed = transformITunesFeed(res.data.feed);
-      transformedFeed.albums = transformedFeed.albums.map(
-        (value: AlbumInterface, index: number) => {
-          transformedFeed.albums[index]['index'] = index;
-          return transformedFeed.albums[index];
-        },
-      );
-      setFeed(transformedFeed);
-    });
-  }, []);
+    if (!feed) {
+      fetchITunesFeed().then((res: any) => {
+        const transformedFeed = transformITunesFeed(res.data.feed);
+        transformedFeed.albums = transformedFeed.albums.map(
+          (value: AlbumInterface, index: number) => {
+            transformedFeed.albums[index]['index'] = index;
+            return transformedFeed.albums[index];
+          },
+        );
+        setFeed(transformedFeed);
+      });
+    }
+    if (feed) {
+      dispatch(update({ updated: feed.updated, albums: feed.albums }));
+      console.log(updated);
+    }
+  }, [feed]);
 
   return (
     <div className={`${isDarkMode ? 'dark' : ''}`}>
