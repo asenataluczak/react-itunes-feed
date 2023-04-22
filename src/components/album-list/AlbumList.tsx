@@ -25,6 +25,7 @@ function AlbumList({ albums }: AlbumListProps) {
               filteredAlbums?.map((album: any, index: number) => (
                 <Album
                   key={index}
+                  positionShift={album.positionShift}
                   index={album.index}
                   name={album.name}
                   artist={album.artist}

@@ -20,7 +20,9 @@ function Album(album: AlbumPropsInterface) {
         <div className='w-8 shrink-0 text-right text-2xl font-semibold text-blue dark:font-normal'>
           {album.index + 1}.
         </div>
-        <PositionTracker shift={'new'}></PositionTracker>
+        {album.positionShift != undefined && album.positionShift !== '0' && (
+          <PositionTracker shift={album.positionShift}></PositionTracker>
+        )}
       </div>
       <div
         className='mb-6 flex w-full gap-x-4 rounded-md border border-sand-200 bg-sand-100 text-base text-sand-400 dark:border-gray-300 dark:bg-gray-500 dark:text-gray-50'>

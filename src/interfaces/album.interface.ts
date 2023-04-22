@@ -9,4 +9,5 @@ export default interface AlbumInterface {
   link: string;
   price: string;
   index: number;
+  positionShift: string;
 }
