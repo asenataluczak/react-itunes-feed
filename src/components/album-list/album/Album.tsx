@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AlbumInterface from '../interfaces/album.interface';
+import AlbumInterface from '../../../interfaces/album.interface';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 import PositionTracker from './position-tracker/PositionTracker';
 

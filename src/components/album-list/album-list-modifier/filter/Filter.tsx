@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 import ReactSlider from 'react-slider';
-import FilterQuery from '../../interfaces/filter-query.interface';
+import FilterQuery from '../../../../interfaces/filter-query.interface';
 
 interface FilterProps {
   entryData: {

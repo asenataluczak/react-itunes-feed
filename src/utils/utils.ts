@@ -1,7 +1,7 @@
 import FeedInterface from '../interfaces/feed.interface';
 import AlbumInterface from '../interfaces/album.interface';
 
-export default function transformITunesFeed(feed: any): FeedInterface {
+export function transformITunesFeed(feed: any): FeedInterface {
   const albums: Array<AlbumInterface> = feed.entry.map((album: any) => ({
     category: album.category.attributes.label,
     link: album.link.attributes.href,
@@ -18,4 +18,15 @@ export default function transformITunesFeed(feed: any): FeedInterface {
     icon: feed.icon.label,
     albums,
   };
+}
+
+export function getPositionShift(album: AlbumInterface, oldAlbumsList: Array<AlbumInterface>): string {
+  const oldAlbum = oldAlbumsList.find(
+    (oldAlbum: AlbumInterface) =>
+      oldAlbum.name + oldAlbum.artist.name === album.name + album.artist.name,
+  );
+  if (!oldAlbum) return 'new';
+  let shift: string | number = album.index - oldAlbum.index;
+  if (shift > 0) shift = '+' + shift;
+  return shift.toString();
 }

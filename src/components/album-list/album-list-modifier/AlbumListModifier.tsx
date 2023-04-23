@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import AlbumInterface from '../../interfaces/album.interface';
-import SearchBar from '../search-bar/SearchBar';
-import Filter from '../filter/Filter';
-import FilterQuery from '../../interfaces/filter-query.interface';
+import AlbumInterface from '../../../interfaces/album.interface';
+import SearchBar from './search-bar/SearchBar';
+import Filter from './filter/Filter';
+import FilterQuery from '../../../interfaces/filter-query.interface';
 
 interface AlbumListModifierProps {
   albums: Array<AlbumInterface> | undefined;

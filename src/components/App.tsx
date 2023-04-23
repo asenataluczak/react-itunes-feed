@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FeedInterface from '../interfaces/feed.interface';
 import fetchITunesFeed from '../services/services';
-import transformITunesFeed from '../utils/utils';
+import { getPositionShift, transformITunesFeed } from '../utils/utils';
 import AlbumInterface from '../interfaces/album.interface';
 import AlbumList from './album-list/AlbumList';
 import DarkModeToggler from './dark-mode-toggler/DarkModeToggler';
@@ -16,17 +16,6 @@ function App() {
   const albums = useSelector((state: RootState) => state.albumList.albums);
   const dispatch = useDispatch();
 
-  function getPositionShift(album: AlbumInterface): string | number {
-    const oldAlbum = albums.find(
-      (oldAlbum: AlbumInterface) =>
-        oldAlbum.name + oldAlbum.artist.name === album.name + album.artist.name,
-    );
-    if (!oldAlbum) return 'new';
-    let shift: string | number = album.index - oldAlbum.index;
-    if (shift > 0) shift = '+' + shift;
-    return shift.toString();
-  }
-
   useEffect(() => {
     let fetchedFeed: any;
     fetchITunesFeed().then((res: any) => {
@@ -35,8 +24,10 @@ function App() {
         (value: AlbumInterface, index: number) => {
           fetchedFeed.albums[index]['index'] = index;
           if (updated && updated !== fetchedFeed.updated) {
-            fetchedFeed.albums[index]['positionShift'] =
-              getPositionShift(value);
+            fetchedFeed.albums[index]['positionShift'] = getPositionShift(
+              value,
+              albums,
+            );
           }
           return fetchedFeed.albums[index];
         },

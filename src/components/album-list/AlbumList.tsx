@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Album from '../Album';
+import Album from './album/Album';
 import AlbumInterface from '../../interfaces/album.interface';
-import AlbumListModifier from '../album-list-modifier/AlbumListModifier';
+import AlbumListModifier from './album-list-modifier/AlbumListModifier';
 
 interface AlbumListProps {
   albums: Array<AlbumInterface> | undefined;
