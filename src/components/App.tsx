@@ -5,15 +5,12 @@ import { getPositionShift, transformITunesFeed } from '../utils/utils';
 import AlbumInterface from '../interfaces/album.interface';
 import AlbumList from './album-list/AlbumList';
 import DarkModeToggler from './dark-mode-toggler/DarkModeToggler';
-import { useDispatch, useSelector } from 'react-redux';
-import { update } from '../store/albumListSlice';
-import { RootState } from '../store/store';
+import { useDispatch } from 'react-redux';
+import { selectAlbums, selectUpdated, update } from '../store/albumListSlice';
 
 function App() {
   const [feed, setFeed] = useState<FeedInterface>();
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
-  const updated = useSelector((state: RootState) => state.albumList.updated);
-  const albums = useSelector((state: RootState) => state.albumList.albums);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,16 +20,16 @@ function App() {
       fetchedFeed.albums = fetchedFeed.albums.map(
         (value: AlbumInterface, index: number) => {
           fetchedFeed.albums[index]['index'] = index;
-          if (updated && updated !== fetchedFeed.updated) {
+          if (selectUpdated && selectUpdated !== fetchedFeed.updated) {
             fetchedFeed.albums[index]['positionShift'] = getPositionShift(
               value,
-              albums,
+              selectAlbums,
             );
           }
           return fetchedFeed.albums[index];
         },
       );
-      if (updated && updated !== fetchedFeed.updated) {
+      if (selectUpdated && selectUpdated !== fetchedFeed.updated) {
         dispatch(
           update({
             updated: fetchedFeed.updated,
@@ -40,7 +37,7 @@ function App() {
           }),
         );
       }
-      setFeed({ ...fetchedFeed, albums });
+      setFeed({ ...fetchedFeed, selectAlbums });
     });
   }, []);
 
