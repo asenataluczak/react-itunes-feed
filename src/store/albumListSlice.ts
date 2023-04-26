@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import AlbumInterface from '../interfaces/album.interface';
-import { useSelector } from 'react-redux';
-import { RootState } from './store';
 
 interface AlbumListState {
   updated: string;
@@ -27,9 +25,5 @@ export const albumListSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { update } = albumListSlice.actions;
-
-// Selectors
-export const selectUpdated = useSelector((state: RootState) => state.albumList.updated);
-export const selectAlbums = useSelector((state: RootState) => state.albumList.albums);
 
 export default albumListSlice.reducer;

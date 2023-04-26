@@ -5,12 +5,15 @@ import { getPositionShift, transformITunesFeed } from '../utils/utils';
 import AlbumInterface from '../interfaces/album.interface';
 import AlbumList from './album-list/AlbumList';
 import DarkModeToggler from './dark-mode-toggler/DarkModeToggler';
-import { useDispatch } from 'react-redux';
-import { selectAlbums, selectUpdated, update } from '../store/albumListSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { update } from '../store/albumListSlice';
+import { RootState } from '../store/store';
 
 function App() {
   const [feed, setFeed] = useState<FeedInterface>();
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+  const selectUpdated = useSelector((state: RootState) => state.albumList.updated);
+  const selectAlbums = useSelector((state: RootState) => state.albumList.albums);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,7 +40,7 @@ function App() {
           }),
         );
       }
-      setFeed({ ...fetchedFeed, selectAlbums });
+      setFeed({ ...fetchedFeed, albums: selectAlbums });
     });
   }, []);
 
