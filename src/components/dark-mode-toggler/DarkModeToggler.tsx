@@ -14,9 +14,15 @@ function DarkModeToggler({ isDarkMode, setIsDarkMode }: DarkModeTogglerProps) {
       onClick={() => setIsDarkMode(!isDarkMode)}
     >
       {isDarkMode ? (
-        <SunIcon className='h-8 w-8 text-sand-50'></SunIcon>
+        <SunIcon
+          data-testid='sun-icon'
+          className='h-8 w-8 text-sand-50'
+        ></SunIcon>
       ) : (
-        <MoonIcon className='h-8 w-8 text-gray-100'></MoonIcon>
+        <MoonIcon
+          data-testid='moon-icon'
+          className='h-8 w-8 text-gray-100'
+        ></MoonIcon>
       )}
     </div>
   );
