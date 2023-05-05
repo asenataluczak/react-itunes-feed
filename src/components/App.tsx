@@ -50,7 +50,7 @@ function App() {
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
       ></DarkModeToggler>
-      <div className='mx-6 my-0 md:mx-auto md:w-3/4 xl:w-3/5 2xl:w-1/2'>
+      <div className='mx-6 my-0 mt-12 md:mx-auto md:w-3/4 xl:w-3/5 2xl:w-1/2'>
         <header className='my-8 text-center text-4xl font-semibold text-blue dark:font-normal'>
           <h1>{feed?.title}</h1>
         </header>

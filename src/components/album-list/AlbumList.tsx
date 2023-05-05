@@ -20,7 +20,7 @@ function AlbumList({ albums }: AlbumListProps) {
       ></AlbumListModifier>
       <div className='mt-10'>
         {albums && (
-          <div className='mt-6'>
+          <div className='mt-6 album-list-calculated-height'>
             {filteredAlbums?.length ? (
               filteredAlbums?.map((album: any, index: number) => (
                 <Album

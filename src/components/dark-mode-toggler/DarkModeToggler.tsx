@@ -9,7 +9,8 @@ interface DarkModeTogglerProps {
 function DarkModeToggler({ isDarkMode, setIsDarkMode }: DarkModeTogglerProps) {
   return (
     <div
-      className='absolute top-6 right-14 flex h-10 w-10 cursor-pointer items-center justify-center rounded-3xl bg-gray-300 dark:bg-sand-300'
+      className='absolute top-2 right-3 flex h-10 w-10 cursor-pointer items-center justify-center rounded-3xl bg-gray-300 dark:bg-sand-300 md:top-4 md:right-8 xl:top-6 xl:right-14'
+      data-testid='toggle-btn'
       onClick={() => setIsDarkMode(!isDarkMode)}
     >
       {isDarkMode ? (

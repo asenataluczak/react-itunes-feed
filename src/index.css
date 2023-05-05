@@ -34,3 +34,17 @@ body:not(:has(.dark)) {
   border-radius: 50%;
   border: 8px solid #539bf5;
 }
+
+.album-calculated-width {
+  width: calc(100% - 32px - 16px);
+}
+
+.album-list-calculated-height {
+  min-height: calc(100vh - 340px);
+}
+
+.truncate-2-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
