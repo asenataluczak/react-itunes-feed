@@ -12,7 +12,7 @@ Specific requirements and used technologies listed below.
 2. Allow the user to see more information about a selected album
 3. Allow the user to search through albums by album's and artist's name
 4. Allow the user to filter albums by genre and price
-5. For every album present how much its position shifted since the last update
+5. For every album present how much its position shifted since the last visit to the website
 
 ### Non-functional
 
