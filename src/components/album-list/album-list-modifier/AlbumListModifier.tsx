@@ -6,6 +6,8 @@ import FilterQuery from '../../../interfaces/filter-query.interface';
 
 interface AlbumListModifierProps {
   albums: Array<AlbumInterface> | undefined;
+  // nie polecam przekazywać bezpośrednio setterów dla useState z komponentu powyżej.
+  // tutaj nazwałbym tego props np. `onAlbumsFilter` czy cokolwiek on tam sobie robi. "Emituj" eventy, a reakcję na nie umieszczaj logicznie w rodzicu
   setFilteredAlbums: (albums: Array<AlbumInterface>) => void;
 }
 
@@ -30,7 +32,8 @@ function AlbumListModifier({
       ?.map((album: AlbumInterface) => +album.price.replace('$', ''))
       .sort((a: number, b: number) => a - b);
     return Math.ceil(Number(prices?.pop()));
-  };
+  }; // wszystkie funkcje w komponencie są deklarowane na nowo przy każdym rerenderze. Deklaruj funkcje w komponentach TYLKO jeśli musisz coś wykorzystać z hooków tutaj.
+  // Najlepiej robić po prostu gdzieś obok utila, który przyjmuje Given i zwraca Expected i jest czysty, niezależny od stanu
 
   const ifWithinPriceRange = (price: string) => {
     if (!filterQuery.priceRange.length) {
@@ -73,6 +76,6 @@ function AlbumListModifier({
       ></Filter>
     </>
   );
-}
+} // komponenty bez childa np. `SearchBar` domykamy tj. `<SearchBar onSearchChange={(newValue) => setSearchQuery(newValue)}/>`
 
 export default AlbumListModifier;

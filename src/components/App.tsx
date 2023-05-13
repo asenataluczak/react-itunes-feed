@@ -11,15 +11,20 @@ import { RootState } from '../store/store';
 
 function App() {
   const [feed, setFeed] = useState<FeedInterface>();
+
+  // dark mode przeniósłbym do store, nie musiałabyś wtedy również przekazywać później tego w dół
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+
+  // Te selectory sugerowałbym wyciągnąć na zewnątrz, albo zrobić dedykowane np. useAlbums, albo samą tylko funkcję przekazywaną do useSelector
   const selectUpdated = useSelector((state: RootState) => state.albumList.updated);
   const selectAlbums = useSelector((state: RootState) => state.albumList.albums);
   const dispatch = useDispatch();
 
   useEffect(() => {
     let fetchedFeed: any;
+    // zastanowiłbym się nad wyciągnięciem tej logiki, pierwsze wrażenie: ściana tekstu
     fetchITunesFeed().then((res: any) => {
-      fetchedFeed = transformITunesFeed(res.data.feed);
+      fetchedFeed = transformITunesFeed(res.data.feed); // fajnie, że zrobiłaś warstwę abstrakcji mapującą dane z API na model dla view
       fetchedFeed.albums = fetchedFeed.albums.map(
         (value: AlbumInterface, index: number) => {
           fetchedFeed.albums[index]['index'] = index;
@@ -41,12 +46,15 @@ function App() {
         );
       }
       setFeed({ ...fetchedFeed, albums: selectAlbums });
+      // a może by tak spróbować użyć dedykowanego narzędzia do pracy z API reduxa? https://redux-toolkit.js.org/rtk-query/overview
     });
-  }, []);
+  }, []); // jesteś pewna, że nie powinnaś tutaj dodać żadnych depsów do tablicy?
 
+
+  // poświęciłbym trochę więcej pracy nad samą strukturą HTML/komponentów. Część komponentów nie ma sensu renderować wcale, jeśli np. feed === null. Zabezpieczaj się przed tym jak najwyżej, a w komponentach wymagaj przekazania paramu już nie jako Nullable
   return (
     <div className={`${isDarkMode ? 'dark' : ''}`}>
-      <DarkModeToggler
+      <DarkModeToggler // ten komponent imo po prostu trzeba by podpiąć do store, powinien on mutować isDarkModeEnabled w storze
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
       ></DarkModeToggler>

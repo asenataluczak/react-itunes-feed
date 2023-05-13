@@ -21,7 +21,12 @@ function Filter({ entryData, filter }: FilterProps) {
   const [selectedPriceRange, setSelectedPriceRange] = useState<Array<number>>(
     [],
   );
-
+  // kiedyś sobie wymyśliłem takie podejście, żeby oddzielać warstwę wizualną od warstwy logicznej
+  // można całą logikę komponentu zawrzeć w hooku np.:
+  // tutaj masz komponent Filter, możesz stworzyć sobie hooka `useFilter`, gdzieś obok tego komponentu
+  // łatwiej później otestować samą logikę i samą warstwę wizualną osobno.
+  // nie każdemu developerowi się ten pomysł podobał, także pozostawiam jako inspirację
+  // ale tutaj zdecydowanie za mało jest granulacji ogólnie
   const addRemoveGenre = (genre: string) => {
     if (!selectedGenres.includes(genre)) {
       setSelectedGenres([genre, ...selectedGenres]);
@@ -57,6 +62,7 @@ function Filter({ entryData, filter }: FilterProps) {
     setFilterOn(
       !!selectedGenres.length || ifPriceRangeChanged(selectedPriceRange),
     );
+    // useEffecty mutujące stan to proszenie się o problemy. Może lepiej mutować ten stan w momencie np. pobrania danych?
   }, [selectedGenres, selectedPriceRange]);
 
   return (
@@ -68,7 +74,7 @@ function Filter({ entryData, filter }: FilterProps) {
               ? 'ring-2 ring-blue dark:ring-1'
               : 'ring-1 ring-sand-200 dark:ring-gray-300'
           } relative rounded-md bg-sand-100 py-1.5 px-12 align-middle text-sm font-semibold text-sand-400  ring-inset hover:bg-sand-200 dark:bg-gray-400 dark:text-gray-100 dark:hover:bg-gray-300 `}
-          onClick={() => setShowPanel(!showPanel)}
+          onClick={() => setShowPanel(!showPanel)} // nie musisz się bać dzielenia na bardzo malutkie funkcje, ja bym tutaj zrobił const switchShowPanel = () => setShowPanel(!showPanel);
         >
           {filterOn
             ? 'Filtered by: ' +
@@ -77,6 +83,7 @@ function Filter({ entryData, filter }: FilterProps) {
               (selectedPriceRange.length ? 'price' : '')
             : 'Filter'}
           {showPanel ? (
+              // a może zawrzeć sobie te ikony w osobnym komponencie? Np. ArrowUpIcon itp. Tam zawrzeć te klasy
             <ChevronUpIcon className='absolute inset-y-2 right-3 h-4 w-4'></ChevronUpIcon>
           ) : (
             <ChevronDownIcon className='absolute inset-y-2 right-3 h-4 w-4'></ChevronDownIcon>
@@ -147,6 +154,8 @@ function Filter({ entryData, filter }: FilterProps) {
       </div>
     </div>
   );
+
+  // cały ten komponent wydaje mi się overcomplicated na pierwszy rzut oka, dużo tutaj bym podzielił na osobne komponenty
 }
 
 export default Filter;
